@@ -58,16 +58,16 @@ export default function Component() {
   };
 
   const navItems = [
-    { name: "Home", href: "#" },
-    { name: "Features", href: "#features" },
-    { name: "Team", href: "#team" },
-    { name: "Pricing", href: "#pricing" },
-    { name: "Contact", href: "#contact" },
+    { name: "Bem-vindo", href: "#" },
+    { name: "Funcionalidades", href: "#features" },
+    { name: "Equipe", href: "#team" },
+    { name: "Preços", href: "#pricing" },
+    { name: "Contato", href: "#contact" },
   ];
 
   return (
     <header
-      id="home"
+      id="Bem-vindo"
       ref={headerRef}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
@@ -76,7 +76,7 @@ export default function Component() {
       }`}
     >
       <div className="container flex h-16 items-center justify-between ">
-        {/*logo*/}
+        {/*  */}
         <div className="flex items-center">
           <Link className="flex items-center space-x-2" href="/">
             <Logo />
@@ -99,7 +99,7 @@ export default function Component() {
         </nav>
         {/*cta button*/}
         <div className="flex items-center space-x-4">
-          <CtaButton text={"Get Started"} className="hidden md:inline-flex" />
+          <CtaButton text={"Login"} className="hidden md:inline-flex" />
           {/* on mobile */}
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>

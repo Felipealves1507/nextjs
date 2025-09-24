@@ -8,9 +8,11 @@ export default function Footer() {
         <div className="grid lg:grid-cols-6 gap-8">
           {/*left*/}
           <div className="lg:col-span-2">
-            <Logo />
+            <a href="/" className="inline-block hover:opacity-80 transition-opacity">
+              <Logo />
+            </a>
             <p className="py-4 pr-4">
-              Unlock your business potential with our cutting-edge SaaS solutions.
+              Libere o potencial do seu negócio com as soluções da Data Nexus.
             </p>
             <SocialLinks />
           </div>
@@ -23,22 +25,22 @@ export default function Footer() {
                 <ul className="mt-2 space-y-2">
                   <li>
                     <a href="#" className="text-gray-600 hover:text-gray-900">
-                      About Us
+                      Sobre Nós
                     </a>
                   </li>
                   <li>
                     <a href="#" className="text-gray-600 hover:text-gray-900">
-                      Teams
+                      Equipe
                     </a>
                   </li>
                   <li>
                     <a href="#" className="text-gray-600 hover:text-gray-900">
-                      Careers
+                      Carreiras
                     </a>
                   </li>
                   <li>
                     <a href="#" className="text-gray-600 hover:text-gray-900">
-                      Blog
+                      Contato
                     </a>
                   </li>
                 </ul>
@@ -49,22 +51,22 @@ export default function Footer() {
                 <ul className="mt-2 space-y-2">
                   <li>
                     <a href="#" className="text-gray-600 hover:text-gray-900">
-                      Features
+                      Serviços
                     </a>
                   </li>
                   <li>
                     <a href="#" className="text-gray-600 hover:text-gray-900">
-                      Project
+                      Projetos
                     </a>
                   </li>
                   <li>
                     <a href="#" className="text-gray-600 hover:text-gray-900">
-                      Portfolio
+                      Portfólio
                     </a>
                   </li>
                   <li>
                     <a href="#" className="text-gray-600 hover:text-gray-900">
-                      Documentation
+                      Documentação
                     </a>
                   </li>
                 </ul>
@@ -75,17 +77,17 @@ export default function Footer() {
                 <ul className="mt-2 space-y-2">
                   <li>
                     <a href="#" className="text-gray-600 hover:text-gray-900">
-                      Privacy Policy
+                      Política de Privacidade
                     </a>
                   </li>
                   <li>
                     <a href="#" className="text-gray-600 hover:text-gray-900">
-                      Terms & Conditions
+                      Termos e Condições
                     </a>
                   </li>
                   <li>
                     <a href="#" className="text-gray-600 hover:text-gray-900">
-                      Licensing
+                      Licenciamento
                     </a>
                   </li>
                 </ul>
@@ -95,7 +97,7 @@ export default function Footer() {
         </div>
         <hr className="my-8" />
         <div className="text-center text-sm">
-          @ 2024 <a href="https://www.webdesignhot.com/">WebDesignHot</a> All Rights Reserved.
+        @2025 <a href="https://www.webdesignhot.com/"></a> Todos os direitos reservados.
         </div>
       </div>
     </footer>

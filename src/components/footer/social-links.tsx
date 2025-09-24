@@ -36,7 +36,7 @@ export default function SocialLinks() {
       url: "https://www.pinterest.com/",
     },
     {
-      id: 5,
+      id: 6,
       icon: <BsLinkedin />,
       url: "https://www.linkedin.com/",
     },

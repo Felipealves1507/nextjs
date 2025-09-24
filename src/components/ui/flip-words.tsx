@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, LayoutGroup } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export const FlipWords = ({
                             words,
-                            duration = 3000,
+                            duration = 1,
                             className,
                           }: {
   words: string[];
@@ -15,72 +15,100 @@ export const FlipWords = ({
 }) => {
   const [currentWord, setCurrentWord] = useState(words[0]);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const mountedRef = useRef(true);
 
-  // thanks for the fix Julian - https://github.com/Julian-AT
   const startAnimation = useCallback(() => {
-    const word = words[words.indexOf(currentWord) + 1] || words[0];
+    if (!mountedRef.current) return;
+    
+    const currentIndex = words.indexOf(currentWord);
+    const nextIndex = (currentIndex + 1) % words.length;
+    const word = words[nextIndex];
+    
     setCurrentWord(word);
     setIsAnimating(true);
   }, [currentWord, words]);
 
   useEffect(() => {
-    if (!isAnimating)
-      setTimeout(() => {
-        startAnimation();
+    if (!isAnimating && mountedRef.current) {
+      timeoutRef.current = setTimeout(() => {
+        if (mountedRef.current) {
+          startAnimation();
+        }
       }, duration);
+    }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
   }, [isAnimating, duration, startAnimation]);
 
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false;
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <AnimatePresence
-      onExitComplete={() => {
-        setIsAnimating(false);
-      }}
-    >
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: 10,
+    <div className="relative">
+      <AnimatePresence
+        mode="wait"
+        onExitComplete={() => {
+          if (mountedRef.current) {
+            setIsAnimating(false);
+          }
         }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        transition={{
-          duration: 0.4,
-          ease: "easeInOut",
-          type: "spring",
-          stiffness: 100,
-          damping: 10,
-        }}
-        exit={{
-          opacity: 0,
-          y: -40,
-          x: 40,
-          filter: "blur(8px)",
-          scale: 2,
-          position: "absolute",
-        }}
-        className={cn(
-          "z-10 inline-block relative text-left text-neutral-900 dark:text-neutral-100 px-2",
-          className
-        )}
-        key={currentWord}
       >
-        {currentWord.split("").map((letter, index) => (
-          <motion.span
-            key={currentWord + index}
-            initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{
-              delay: index * 0.08,
-              duration: 0.4,
-            }}
-            className="inline-block"
-          >
-            {letter}
-          </motion.span>
-        ))}
-      </motion.div>
-    </AnimatePresence>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 10,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.4,
+            ease: "easeInOut",
+            type: "spring",
+            stiffness: 100,
+            damping: 10,
+          }}
+          exit={{
+            opacity: 0,
+            y: -40,
+            x: 40,
+            filter: "blur(8px)",
+            scale: 2,
+          }}
+          className={cn(
+            "z-10 inline-block relative text-left text-neutral-900 dark:text-neutral-100 px-2",
+            className
+          )}
+          key={currentWord}
+        >
+          {currentWord.split("").map((letter, index) => (
+            <motion.span
+              key={`${currentWord}-${index}`}
+              initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{
+                delay: index * 0.08,
+                duration: 0.4,
+              }}
+              className="inline-block"
+            >
+              {letter}
+            </motion.span>
+          ))}
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 };

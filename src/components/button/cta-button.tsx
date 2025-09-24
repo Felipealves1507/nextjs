@@ -9,7 +9,7 @@ interface IGetStartedButtonProps {
 }
 
 export default function CtaButton({
-  text = "Get started",
+  text = "Vamos Começar",
   className,
   onClick,
 }: IGetStartedButtonProps) {
